@@ -68,7 +68,7 @@ app.service('DomainService', function ($q, $rootScope, toaster, $http) {
                 
                 console.log(self.search, self.page);
                 
-                self.request = $http.get('https://angular-domain-search-penzin.c9users.io/q?search=' + self.search + '&page=' + self.page);
+                self.request = $http.get('https://expired-domains-search.herokuapp.com/q?search=' + self.search + '&page=' + self.page);
                 
                 self.request.then(function(result) {
                     
