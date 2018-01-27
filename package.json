@@ -1,0 +1,29 @@
+{
+  "name": "angular-domain-search",
+  "version": "1.0.0",
+  "description": "Search domainsclose to be expired",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikepenzin/angular_domain_search.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikepenzin/angular_domain_search/issues"
+  },
+  "homepage": "https://github.com/mikepenzin/angular_domain_search#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cheerio-tableparser": "^1.0.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "mongoose": "^5.0.1",
+    "node-schedule": "^1.3.0",
+    "path": "^0.12.7",
+    "request": "^2.83.0"
+  }
+}
