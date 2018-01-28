@@ -51,7 +51,7 @@ app.service('DomainService', function ($q, $rootScope, $http) {
             if (self.hasMore && !self.isLoading) {
                 self.isLoading = true;
                 
-                self.request = $http.get('https://angular-domain-search-penzin.c9users.io/q?search=' + self.search + '&page=' + self.page + '&order=' + self.ordering);
+                self.request = $http.get('https://expired-domains-search.herokuapp.com/q?search=' + self.search + '&page=' + self.page + '&order=' + self.ordering);
                 
                 self.request.then(function(result) {
                     self.domains = result.data;
