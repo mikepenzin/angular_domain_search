@@ -5,11 +5,20 @@ var request             = require('request'),
     cheerioTableparser  = require('cheerio-tableparser'),
     ScrapDB             = require('../models/scrapDB');
 
-cronJob.dbCleanup = function(){
+cronJob.dbFullCleanup = function(){
     
     ScrapDB.remove({}, function(err){
         if(err) { console.log(err); }
         console.log("All data were removed from DB!");
+    }); 
+    
+};
+
+cronJob.dbCleanup = function(){
+    
+    ScrapDB.remove({domain:{'$regex' : "no Domains found", '$options' : 'i'}}, function(err){
+        if(err) { console.log(err); }
+        console.log("Removed all irrelevant data from DB!");
     }); 
     
 };
