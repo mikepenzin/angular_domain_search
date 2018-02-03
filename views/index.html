@@ -210,20 +210,20 @@
                                     {{ domain.domain }}
                                 </a>
                             </td>
-                            <td class="text-center">{{ domain.bl }}</td>
-                            <td class="text-center">{{ domain.dp }}</td>
+                            <td class="text-center">{{ domain.bl | number }}</td>
+                            <td class="text-center">{{ domain.dp | number }}</td>
                             <td class="text-center">{{ domain.aby }}</td>
-                            <td class="text-center">{{ domain.acr }}</td>
-                            <td class="text-center">{{ domain.similarWeb }}</td>
+                            <td class="text-center">{{ domain.acr | number }}</td>
+                            <td class="text-center">{{ domain.similarWeb | number }}</td>
                             <td class="text-center">{{ domain.dmoz }}</td>
                             <td class="text-center green" ng-class="{'red':domain.c == 'registered'}" title="{{ domain.c }}"><i class="fa fa-compass" aria-hidden="true"></i></td>
                             <td class="text-center green" ng-class="{'red':domain.n == 'registered'}" title="{{ domain.n }}"><i class="fa fa-compass" aria-hidden="true"></i></td>
                             <td class="text-center green" ng-class="{'red':domain.o == 'registered'}" title="{{ domain.o }}"><i class="fa fa-compass" aria-hidden="true"></i></td>
-                            <td class="text-center">{{ domain.traffic || '-' }}</td>
-                            <td class="text-center">{{ domain.valuation || '-' }}</td>
-                            <td class="text-center">{{ domain.price || '-' }}</td>
-                            <td class="text-center">{{ domain.bids || '-' }}</td>
-                            <td class="text-center">{{ domain.endDate }}</td>
+                            <td class="text-center">{{ (domain.traffic | number) || '-' }}</td>
+                            <td class="text-center">{{ (domain.valuation | currency) || '-'  }}</td>
+                            <td class="text-center">{{ (domain.price | currency) || '-'  }}</td>
+                            <td class="text-center">{{ (domain.bids | number) || '-' }}</td>
+                            <td class="text-center">{{ domain.endDate | date }}</td>
                         </tr>
                     </table>
                 
@@ -254,7 +254,7 @@
 <script src="/libs/angular-spinner/angular-spinner.min.js"></script>
 <script src="/libs/angular-strap/dist/angular-strap.min.js"></script>
 <script src="/libs/angular-strap/dist/angular-strap.tpl.min.js"></script>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/timeago-simple@1.2.3/dist/timeago.min.js" async></script>
 
 <script src="main.js"></script>
 </body>

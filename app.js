@@ -69,7 +69,7 @@ app.get("/q", function(req, res){
     var options = { limit: 50 };
     var maxPage = 0;
     
-    var filedToShow = ['domain', 'bl', 'dp', 'aby', 'acr', 'similarWeb', 'stc', 'dmoz', 'c', 'n', 'o', 'd', 'tldRequests', 'rdt', 'traffic', 'valuation', 'price', 'bids', 'endDate', 'seller'];
+    var fieldsToShow = ['domain', 'bl', 'dp', 'aby', 'acr', 'similarWeb', 'stc', 'dmoz', 'c', 'n', 'o', 'd', 'tldRequests', 'rdt', 'traffic', 'valuation', 'price', 'bids', 'endDate', 'seller'];
     
     ScrapDB.count({}, function(err, c) {
         if (err){ console.log(err); }
@@ -93,7 +93,7 @@ app.get("/q", function(req, res){
     
     if(req.query.search != null && req.query.search != 'null' && req.query.search.length != 0) {
 
-        ScrapDB.find({domain:{'$regex' : req.query.search, '$options' : 'i'}}, filedToShow ,options, function(err, foundDomains){
+        ScrapDB.find({domain:{'$regex' : req.query.search, '$options' : 'i'}}, fieldsToShow ,options, function(err, foundDomains){
             
             if (err){ console.log(err); }
 
@@ -113,7 +113,7 @@ app.get("/q", function(req, res){
         });
         
     } else {
-        ScrapDB.find({}, filedToShow ,options, function(err, foundDomains){
+        ScrapDB.find({}, fieldsToShow ,options, function(err, foundDomains){
             if (err){ console.log(err); }
             objectJSON.page = page;
             

@@ -4,6 +4,58 @@ var request             = require('request'),
     cheerio             = require('cheerio'),
     cheerioTableparser  = require('cheerio-tableparser'),
     ScrapDB             = require('../models/scrapDB');
+    
+
+function convertToNumber(string) {
+    
+    var newString = '';
+    
+    if( string.indexOf('USD') != -1){
+        string = string.split('USD');
+        return Number(string[0].replace(/\,/g, ""));
+    }
+    
+    if (string.indexOf('M') != -1) {
+        string = string.split('M');
+        newString = string[0].replace(/\s/g, '');
+        if (newString.indexOf('.') != -1) {
+            var numberAfterDot = newString.split('.');
+            switch (numberAfterDot[1].length) {
+                case 1:
+                    return Number(newString.replace(/\./g, "") + "00000");
+                    break;
+                case 2:
+                    return Number(newString.replace(/\./g, "") + "0000");
+                    break;
+                case 3:
+                    return Number(newString.replace(/\./g, "") + "000");
+                    break;
+            }
+            
+        } else {
+            return string = Number(newString.replace(/\./g, "") + "000000");
+        }
+    } else if (string.indexOf('K') != -1) {
+        string = string.split('K');
+        newString = string[0].replace(/\s/g, '');
+        if (newString.indexOf('.') != -1) {
+            var numberAfterDot = newString.split('.');
+            switch (numberAfterDot[1].length) {
+                case 1:
+                    return Number(newString.replace(/\./g, "") + "00");
+                    break;
+                case 2:
+                    return Number(newString.replace(/\./g, "") + "0");
+                    break;
+            }
+        } else {
+            return string = Number(newString.replace(/\./g, "") + "000");
+        }
+    } else {
+        return Number(string.replace(/\,/g, ""));
+    }
+}
+
 
 cronJob.dbFullCleanup = function(){
     
@@ -53,11 +105,11 @@ cronJob.godaddy = function(){
                                     for(var i = 0; i < data[0].length; i++) {
                                         var objectJson = {};
                                         objectJson.domain = data[0][i];
-                                        objectJson.bl = data[1][i];
-                                        objectJson.dp = data[2][i];
+                                        objectJson.bl = convertToNumber(data[1][i]);
+                                        objectJson.dp = convertToNumber(data[2][i]);
                                         objectJson.aby = data[3][i];
-                                        objectJson.acr = data[4][i];
-                                        objectJson.similarWeb = data[5][i];
+                                        objectJson.acr = convertToNumber(data[4][i]);
+                                        objectJson.similarWeb = convertToNumber(data[5][i]);
                                         objectJson.stc = data[6][i];
                                         objectJson.dmoz = data[7][i];
                                         objectJson.c = data[8][i];
@@ -66,11 +118,10 @@ cronJob.godaddy = function(){
                                         objectJson.d = data[11][i];
                                         objectJson.tldRequests = data[12][i];
                                         objectJson.rdt = data[13][i];
-                                        objectJson.traffic = data[14][i];
-                                        objectJson.valuation = data[15][i];
-                                        objectJson.price = data[16][i];
-                                        objectJson.bids = data[17][i];
-                                        objectJson.endDate = data[18][i];
+                                        objectJson.traffic = convertToNumber(data[14][i]);
+                                        objectJson.valuation = convertToNumber(data[15][i]);
+                                        objectJson.price = convertToNumber(data[16][i]);
+                                        objectJson.bids = convertToNumber(data[17][i]);
                                         objectJson.seller = 'GoDaddy';
                                         
                                         (function(objectJson){
@@ -188,11 +239,11 @@ cronJob.namecom = function(){
                                 for(var i = 0; i < data[0].length; i++) {
                                     var objectJson = {};
                                     objectJson.domain = data[0][i];
-                                    objectJson.bl = data[1][i];
-                                    objectJson.dp = data[2][i];
+                                    objectJson.bl = convertToNumber(data[1][i]);
+                                    objectJson.dp = convertToNumber(data[2][i]);
                                     objectJson.aby = data[3][i];
-                                    objectJson.acr = data[4][i];
-                                    objectJson.similarWeb = data[5][i];
+                                    objectJson.acr = convertToNumber(data[4][i]);
+                                    objectJson.similarWeb = convertToNumber(data[5][i]);
                                     objectJson.stc = data[6][i];
                                     objectJson.dmoz = data[7][i];
                                     objectJson.c = data[8][i];
@@ -201,7 +252,7 @@ cronJob.namecom = function(){
                                     objectJson.d = data[11][i];
                                     objectJson.tldRequests = data[12][i];
                                     objectJson.rdt = data[13][i];
-                                    objectJson.endDate = data[14][i];
+                                    objectJson.endDate = new Date(data[14][i]);
                                     objectJson.seller = 'Name.com';
                                     
                                     (function(objectJson){
@@ -254,11 +305,11 @@ cronJob.dynadot = function(){
                                     for(var i = 0; i < data[0].length; i++) {
                                         var objectJson = {};
                                         objectJson.domain = data[0][i];
-                                        objectJson.bl = data[1][i];
-                                        objectJson.dp = data[2][i];
+                                        objectJson.bl = convertToNumber(data[1][i]);
+                                        objectJson.dp = convertToNumber(data[2][i]);
                                         objectJson.aby = data[3][i];
-                                        objectJson.acr = data[4][i];
-                                        objectJson.similarWeb = data[5][i];
+                                        objectJson.acr = convertToNumber(data[4][i]);
+                                        objectJson.similarWeb = convertToNumber(data[5][i]);
                                         objectJson.stc = data[6][i];
                                         objectJson.dmoz = data[7][i];
                                         objectJson.c = data[8][i];
@@ -267,9 +318,9 @@ cronJob.dynadot = function(){
                                         objectJson.d = data[11][i];
                                         objectJson.tldRequests = data[12][i];
                                         objectJson.rdt = data[13][i];
-                                        objectJson.price = data[14][i];
-                                        objectJson.bids = data[15][i];
-                                        objectJson.endDate = data[16][i];
+                                        objectJson.price = convertToNumber(data[14][i]);
+                                        objectJson.bids = convertToNumber(data[15][i]);
+                                        objectJson.endDate = new Date(data[16][i]);
                                         objectJson.seller = 'Dynadot';
                                         
                                         (function(objectJson){
@@ -322,11 +373,11 @@ cronJob.namejet = function(){
                                     for(var i = 0; i < data[0].length; i++) {
                                         var objectJson = {};
                                         objectJson.domain = data[0][i];
-                                        objectJson.bl = data[1][i];
-                                        objectJson.dp = data[2][i];
+                                        objectJson.bl = convertToNumber(data[1][i]);
+                                        objectJson.dp = convertToNumber(data[2][i]);
                                         objectJson.aby = data[3][i];
-                                        objectJson.acr = data[4][i];
-                                        objectJson.similarWeb = data[5][i];
+                                        objectJson.acr = convertToNumber(data[4][i]);
+                                        objectJson.similarWeb = convertToNumber(data[5][i]);
                                         objectJson.stc = data[6][i];
                                         objectJson.dmoz = data[7][i];
                                         objectJson.c = data[8][i];
@@ -335,8 +386,8 @@ cronJob.namejet = function(){
                                         objectJson.d = data[11][i];
                                         objectJson.tldRequests = data[12][i];
                                         objectJson.rdt = data[13][i];
-                                        objectJson.price = data[14][i];
-                                        objectJson.endDate = data[15][i];
+                                        objectJson.price = convertToNumber(data[14][i]);
+                                        objectJson.endDate = new Date(data[15][i]);
                                         objectJson.seller = 'NameJet';
                                         
                                         (function(objectJson){
