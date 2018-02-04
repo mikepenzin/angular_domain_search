@@ -122,6 +122,7 @@ cronJob.godaddy = function(){
                                         objectJson.valuation = convertToNumber(data[15][i]);
                                         objectJson.price = convertToNumber(data[16][i]);
                                         objectJson.bids = convertToNumber(data[17][i]);
+                                        objectJson.endDate =  Date.now() + (10*60*60*1000);
                                         objectJson.seller = 'GoDaddy';
                                         
                                         (function(objectJson){
@@ -320,7 +321,7 @@ cronJob.dynadot = function(){
                                         objectJson.rdt = data[13][i];
                                         objectJson.price = convertToNumber(data[14][i]);
                                         objectJson.bids = convertToNumber(data[15][i]);
-                                        objectJson.endDate = new Date(data[16][i]);
+                                        objectJson.endDate =  Date.now() + (10*60*60*1000);
                                         objectJson.seller = 'Dynadot';
                                         
                                         (function(objectJson){

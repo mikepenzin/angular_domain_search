@@ -19,7 +19,7 @@ var scrapDBSchema = new mongoose.Schema({
     valuation: Number,
     price: Number,
     bids: Number,
-    endDate: {type: Date, default: new Date(+new Date() + 10*60*60*1000)},
+    endDate: Date,
     seller: String
 });
 
