@@ -22,24 +22,22 @@ mongoose.connect(DB_URL);
 // ###########  Add / Remove Data Using cron jobs  ############ //
 // ############################################################ //
 
-    schedule.scheduleJob({hour: 14, minute: 30}, function(){
+    schedule.scheduleJob('30 2 * * *', function(){
         cronJobs.dbFullCleanup();
     });
-    schedule.scheduleJob({hour: 14, minute: 31}, function(){
+    schedule.scheduleJob('31 2 * * *', function(){
         cronJobs.godaddy();
     });
-    schedule.scheduleJob({hour: 14, minute: 32}, function(){
+    schedule.scheduleJob('32 2 * * *', function(){
         cronJobs.dynadot();
     });
-    schedule.scheduleJob({hour: 14, minute: 33}, function(){
+    schedule.scheduleJob('33 2 * * *', function(){
         cronJobs.namecom();
     });
-    
-    schedule.scheduleJob({hour: 14, minute: 34}, function(){
+    schedule.scheduleJob('34 2 * * *', function(){
         cronJobs.namejet();
     });
-    
-    schedule.scheduleJob({hour: 14, minute: 40}, function(){
+    schedule.scheduleJob('35 2 * * *', function(){
         cronJobs.dbCleanup();
     });
 
