@@ -5,7 +5,7 @@ var app = angular.module('domainSearch', [
     'mgcrea.ngStrap'
 ]);
 
-app.controller('DomainListController', function ($scope, DomainService) {
+app.controller('DomainListController', function ($scope, DomainService, $timeout) {
 
     $scope.search = '';
     $scope.order = '';
@@ -20,6 +20,23 @@ app.controller('DomainListController', function ($scope, DomainService) {
         $scope.domains.page = 1;
         $scope.domains.loadDomains();
     }
+    
+    $scope.runCrawler = function() {
+        $scope.domains.search = null;
+        $scope.domains.domains = [];
+        $scope.domains.isLoading = true;
+        $scope.domains.runCrawler();
+        
+        $timeout(function(){
+            
+            $scope.domains.isLoading = false;
+            $scope.domains.crawlerStarted = false;
+            $scope.domains.search = null;
+            $scope.domains.page = 1;
+            $scope.domains.loadDomains();
+            
+        }, 5 * 60 * 1000);
+    }
 });
 
 app.service('DomainService', function ($q, $rootScope, $http) {
@@ -31,7 +48,8 @@ app.service('DomainService', function ($q, $rootScope, $http) {
         'request': null,
         'domains': [],
         'search': null,
-        'ordering': 'domain',
+        'ordering': '-valuation',
+        'crawlerStarted': false,
         
         'doSearch': function () {
             self.hasMore = true;
@@ -62,6 +80,18 @@ app.service('DomainService', function ($q, $rootScope, $http) {
                 });
             }    
         },        
+        
+        'runCrawler': function() {
+            self.isLoading = true;
+            self.request = $http.get('/run-crawler');
+            
+            self.request.then(function(result) {
+                if (result.data.start == "success") {
+                    self.crawlerStarted = true;
+                }
+            });
+        },        
+
 
         'loadMore': function () {
             if (self.hasMore && !self.isLoading) {

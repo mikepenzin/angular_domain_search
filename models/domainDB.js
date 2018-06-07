@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
     
-var scrapDBSchema = new mongoose.Schema({
+var domainDBSchema = new mongoose.Schema({
     domain: String,
     bl: Number,
     dp: Number,
@@ -23,6 +23,6 @@ var scrapDBSchema = new mongoose.Schema({
     seller: String
 });
 
-scrapDBSchema.index({'$**': 'text'});
+domainDBSchema.index({'$**': 'text'});
 
-module.exports = mongoose.model("ScrapDB", scrapDBSchema);
+module.exports = mongoose.model("DomainDB", domainDBSchema);

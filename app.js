@@ -2,8 +2,8 @@ var express             = require('express'),
     dotenv              = require('dotenv'),
     mongoose            = require('mongoose'),
     schedule            = require('node-schedule'),
-    cronJobs            = require('./schedule/index'),
-    ScrapDB             = require('./models/scrapDB'),
+    cronJobs            = require('./scrapper/index'),
+    ScrapDB             = require('./models/domainDB'),
     path                = require("path"),
     app                 = express();
 
@@ -22,25 +22,9 @@ mongoose.connect(DB_URL);
 // ###########  Add / Remove Data Using cron jobs  ############ //
 // ############################################################ //
 
-    schedule.scheduleJob('30 2 * * *', function(){
-        cronJobs.dbFullCleanup();
-    });
-    schedule.scheduleJob('31 2 * * *', function(){
-        cronJobs.godaddy();
-    });
-    schedule.scheduleJob('32 2 * * *', function(){
-        cronJobs.dynadot();
-    });
-    schedule.scheduleJob('33 2 * * *', function(){
-        cronJobs.namecom();
-    });
-    schedule.scheduleJob('34 2 * * *', function(){
-        cronJobs.namejet();
-    });
-    schedule.scheduleJob('35 2 * * *', function(){
-        cronJobs.dbCleanup();
-    });
-
+schedule.scheduleJob('30 * * * *', function(){
+    cronJobs.cronjob();
+});
 
 
 // ############################################################ //
@@ -67,7 +51,7 @@ app.get("/q", function(req, res){
     var options = { limit: 50 };
     var maxPage = 0;
     
-    var fieldsToShow = ['domain', 'bl', 'dp', 'aby', 'acr', 'similarWeb', 'stc', 'dmoz', 'c', 'n', 'o', 'd', 'tldRequests', 'rdt', 'traffic', 'valuation', 'price', 'bids', 'endDate', 'seller'];
+    var fieldsToShow = ['domain', 'bl', 'dp', 'c', 'n', 'o', 'd', 'tldRequests', 'rdt', 'traffic', 'valuation', 'price', 'bids', 'endDate', 'seller'];
     
     ScrapDB.count({}, function(err, c) {
         if (err){ console.log(err); }
@@ -126,6 +110,16 @@ app.get("/q", function(req, res){
     }    
 });
 
+app.get("/run-crawler", function(req, res){
+    console.log("Starting crawler!");
+    cronJobs.cronjob();
+    
+    var object = {
+        start: "success",
+        time: (new Date()).getTime()
+    };
+    res.json(object);
+});
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("=========================");
