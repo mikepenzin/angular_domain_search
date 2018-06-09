@@ -17,7 +17,6 @@ mongoose.Promise = global.Promise;
 var DB_URL = process.env.DB_URL;
 mongoose.connect(DB_URL);
 
-
 // ############################################################ //
 // ###########  Add / Remove Data Using cron jobs  ############ //
 // ############################################################ //

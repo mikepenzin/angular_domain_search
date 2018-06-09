@@ -29,8 +29,17 @@
             <div class="row">
                 <div class="col-md-12">
                     <form class="form-inline well well-sm">
-                        <span class="fa fa-search" style="margin: 0.5% !important;"></span>
-
+                        <!--<span class="fa fa-search" style="margin: 0.5% !important;"></span>-->
+                        <button class="btn btn-primary btn-sm pull-left"
+                                ng-click="runCrawler()">
+                            Run crawler
+                        </button>
+                        
+                        <button class="btn btn-primary btn-sm pull-left" style="margin: 0 10px;"
+                                ng-click="showAll()">
+                            Show all
+                        </button>
+                        
                         <div class="form-group">
                             <input type="text"
                                    class="form-control"
@@ -38,19 +47,11 @@
                                    ng-model="domains.search"
                                    ng-model-options="{debounce: 750}"
                                    placeholder="Search by domain name..."
-                                   style="width: 65vw;"
+                                   style="width: 77vw;"
                             />
                         </div>
                         
-                        <button class="btn btn-primary btn-sm pull-right"
-                                ng-click="runCrawler()">
-                            Run crawler
-                        </button>
                         
-                        <button class="btn btn-primary btn-sm pull-right" style="margin: 0 10px;"
-                                ng-click="showAll()">
-                            Show all
-                        </button>
                         
                     </form>
 
@@ -68,51 +69,51 @@
                                 </div>
                                 Domain
                             </th>
-                            <th class="col-2" title="Majestic External Backlinks">
-                                <div class="sortables" >
-                                    <span ng-click="domains.ordering = 'bl'"
-                                          class="fa fa-sort-asc"></span>
-                                    <span ng-click="domains.ordering = '-bl'"
-                                          class="fa fa-sort-desc"></span>
-                                </div>
-                                BL
-                            </th>
-                            <th class="col-3" title="SEOkicks Domain Pop - Number of Backlinks from different Domains">
-                                <div class="sortables" >
-                                    <span ng-click="domains.ordering = 'dp'"
-                                          class="fa fa-sort-asc"></span>
-                                    <span ng-click="domains.ordering = '-dp'"
-                                          class="fa fa-sort-desc"></span>
-                                </div>
-                                DP
-                            </th>
-                            <th class="col-9" title="DNS Status .com of Domain Name">
-                                <div class="sortables">
-                                    <span ng-click="domains.ordering = 'c'"
-                                          class="fa fa-sort-asc"></span>
-                                    <span ng-click="domains.ordering = '-c'"
-                                          class="fa fa-sort-desc"></span>
-                                </div>
-                                C
-                            </th>
-                            <th class="col-10" title="DNS Status .net of Domain Name">
-                                <div class="sortables">
-                                    <span ng-click="domains.ordering = 'n'"
-                                          class="fa fa-sort-asc"></span>
-                                    <span ng-click="domains.ordering = '-n'"
-                                          class="fa fa-sort-desc"></span>
-                                </div>
-                                N
-                            </th>
-                            <th class="col-11" title="DNS Status .org of Domain Name">
-                                <div class="sortables">
-                                    <span ng-click="domains.ordering = 'o'"
-                                          class="fa fa-sort-asc"></span>
-                                    <span ng-click="domains.ordering = '-o'"
-                                          class="fa fa-sort-desc"></span>
-                                </div>
-                                O
-                            </th>
+                            <!--<th class="col-2" title="Majestic External Backlinks">-->
+                            <!--    <div class="sortables" >-->
+                            <!--        <span ng-click="domains.ordering = 'bl'"-->
+                            <!--              class="fa fa-sort-asc"></span>-->
+                            <!--        <span ng-click="domains.ordering = '-bl'"-->
+                            <!--              class="fa fa-sort-desc"></span>-->
+                            <!--    </div>-->
+                            <!--    BL-->
+                            <!--</th>-->
+                            <!--<th class="col-3" title="SEOkicks Domain Pop - Number of Backlinks from different Domains">-->
+                            <!--    <div class="sortables" >-->
+                            <!--        <span ng-click="domains.ordering = 'dp'"-->
+                            <!--              class="fa fa-sort-asc"></span>-->
+                            <!--        <span ng-click="domains.ordering = '-dp'"-->
+                            <!--              class="fa fa-sort-desc"></span>-->
+                            <!--    </div>-->
+                            <!--    DP-->
+                            <!--</th>-->
+                            <!--<th class="col-9" title="DNS Status .com of Domain Name">-->
+                            <!--    <div class="sortables">-->
+                            <!--        <span ng-click="domains.ordering = 'c'"-->
+                            <!--              class="fa fa-sort-asc"></span>-->
+                            <!--        <span ng-click="domains.ordering = '-c'"-->
+                            <!--              class="fa fa-sort-desc"></span>-->
+                            <!--    </div>-->
+                            <!--    C-->
+                            <!--</th>-->
+                            <!--<th class="col-10" title="DNS Status .net of Domain Name">-->
+                            <!--    <div class="sortables">-->
+                            <!--        <span ng-click="domains.ordering = 'n'"-->
+                            <!--              class="fa fa-sort-asc"></span>-->
+                            <!--        <span ng-click="domains.ordering = '-n'"-->
+                            <!--              class="fa fa-sort-desc"></span>-->
+                            <!--    </div>-->
+                            <!--    N-->
+                            <!--</th>-->
+                            <!--<th class="col-11" title="DNS Status .org of Domain Name">-->
+                            <!--    <div class="sortables">-->
+                            <!--        <span ng-click="domains.ordering = 'o'"-->
+                            <!--              class="fa fa-sort-asc"></span>-->
+                            <!--        <span ng-click="domains.ordering = '-o'"-->
+                            <!--              class="fa fa-sort-desc"></span>-->
+                            <!--    </div>-->
+                            <!--    O-->
+                            <!--</th>-->
                             <th class="col-15" title="Seller">
                                 <div class="sortables">
                                     <span ng-click="domains.ordering = 'seller'"
@@ -182,17 +183,17 @@
                                     {{ domain.domain }}
                                 </a>
                             </td>
-                            <td class="text-center">{{ domain.bl | number }}</td>
-                            <td class="text-center">{{ domain.dp | number }}</td>
-                            <td class="text-center green" ng-class="{'red':domain.c == 'registered'}" title="{{ domain.c }}"><i class="fa fa-compass" aria-hidden="true"></i></td>
-                            <td class="text-center green" ng-class="{'red':domain.n == 'registered'}" title="{{ domain.n }}"><i class="fa fa-compass" aria-hidden="true"></i></td>
-                            <td class="text-center green" ng-class="{'red':domain.o == 'registered'}" title="{{ domain.o }}"><i class="fa fa-compass" aria-hidden="true"></i></td>
-                            <td class="text-center">{{ domain.seller || '-' }}</td>
-                            <td class="text-center">{{ (domain.valuation | currency) || '-'  }}</td>
-                            <td class="text-center">{{ (domain.price | currency) || '-'  }}</td>
-                            <td class="text-center">{{ (domain.bids | number) || '-' }}</td>
-                            <td class="text-center">{{ domain.endDate | date }}</td>
-                            <td style="font-weight: bold;" ng-switch on="domain.seller" title="{{domain.domain + ' // ' + domain.seller}}">
+                            <!--<td class="text-center">{{ domain.bl | number }}</td>-->
+                            <!--<td class="text-center">{{ domain.dp | number }}</td>-->
+                            <!--<td class="text-center green" ng-class="{'red':domain.c == 'registered'}" title="{{ domain.c }}"><i class="fa fa-compass" aria-hidden="true"></i></td>-->
+                            <!--<td class="text-center green" ng-class="{'red':domain.n == 'registered'}" title="{{ domain.n }}"><i class="fa fa-compass" aria-hidden="true"></i></td>-->
+                            <!--<td class="text-center green" ng-class="{'red':domain.o == 'registered'}" title="{{ domain.o }}"><i class="fa fa-compass" aria-hidden="true"></i></td>-->
+                            <td class="text-center" style="text-align: left; padding: 0 0 0 32px;">{{ domain.seller || '-' }}</td>
+                            <td class="text-center" style="text-align: left; padding: 0 0 0 32px;">{{ (domain.valuation | currency) || '-'  }}</td>
+                            <td class="text-center" style="text-align: left; padding: 0 0 0 32px;">{{ (domain.price | currency) || '-'  }}</td>
+                            <td class="text-center" style="text-align: left; padding: 0 0 0 32px;">{{ (domain.bids | number) || '-' }}</td>
+                            <td class="text-center" style="text-align: left; padding: 0 0 0 32px;">{{ domain.endDate | date }}</td>
+                            <td style="font-weight: bold;" ng-switch on="domain.seller" title="{{domain.domain + ' // ' + domain.seller}}" >
                                 <a ng-switch-when="GoDaddy" 
                                 href="https://auctions.godaddy.com/en/trpItemListing.aspx?domain={{ domain.domain }}" target="_blank">
                                     More info
